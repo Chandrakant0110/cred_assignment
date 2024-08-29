@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -149,26 +148,36 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        for (int i = 0; i < sections.length; i++) ...[
-                          Text(
-                            sections[i]['template_properties']['header']
-                                ['title'],
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          sectionCard(
-                            isListView,
-                            sections[i],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                        ],
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: sections.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  sections[index]['template_properties']
+                                      ['header']['title'],
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                sectionCard(
+                                  isListView,
+                                  sections[index],
+                                ),
+                                const SizedBox(
+                                  height: 24,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -212,7 +221,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     final double gridItemWidth = (constraints.maxWidth - 16) / 3;
     final double gridItemHeight = gridItemWidth;
 
-    // Determining the grid or list positions
     final int row = isListView ? index ~/ 1 : index ~/ 3;
     final int column = isListView ? 0 : index % 3;
 
