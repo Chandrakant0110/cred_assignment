@@ -22,6 +22,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
   List<dynamic> sections = [];
   final double listItemHeight = 120.0;
   bool isOffline = false;
+  String title = '';
+  String subTitle = '';
 
   Future<void> fetchData() async {
     setState(() {
@@ -35,6 +37,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         setState(() {
+          title =
+              data['explore_cred']['template_properties']['header']['title'];
+          subTitle = data['explore_cred']['template_properties']['header']
+              ['subtitle_title'];
           sections = data['sections'];
         });
       } else {
@@ -93,9 +99,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         const SizedBox(
                           height: 72,
                         ),
-                        const Text(
-                          'explore',
-                          style: TextStyle(
+                        Text(
+                          title,
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 18,
                           ),
@@ -106,9 +112,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'CRED',
-                              style: TextStyle(
+                            Text(
+                              subTitle,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
@@ -182,21 +188,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
         final double gridItemWidth = (constraints.maxWidth - 16) / 3;
         final double gridItemHeight = gridItemWidth + 4;
 
-        return Container(
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOutCubic,
-            height: isListView
-                ? numberOfRows * listItemHeight + 2
-                : numberOfRows * gridItemHeight + 2,
-            child: Stack(
-              children: List.generate(numberOfItemsInSection, (index) {
-                final itemData =
-                    sectionData['template_properties']['items'][index];
-                return _buildAnimatedItem(
-                    index, constraints, isListView, itemData);
-              }),
-            ),
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
+          height: isListView
+              ? numberOfRows * listItemHeight + 2
+              : numberOfRows * gridItemHeight + 2,
+          child: Stack(
+            children: List.generate(numberOfItemsInSection, (index) {
+              final itemData =
+                  sectionData['template_properties']['items'][index];
+              return _buildAnimatedItem(
+                  index, constraints, isListView, itemData);
+            }),
           ),
         );
       },
@@ -231,6 +235,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       padding: const EdgeInsets.all(10),
@@ -254,7 +259,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           textAlign: TextAlign.center,
                           softWrap: true,
                           maxLines: 2,
-                          style: const TextStyle(fontSize: 11),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ),
                   ],
@@ -276,9 +281,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             ),
                             Text(
                               itemData['display_data']['description'],
-                              overflow: TextOverflow.ellipsis,
+                              overflow: TextOverflow.visible,
+                              maxLines: 2,
+                              softWrap: true,
                               style: const TextStyle(
-                                fontSize: 11,
+                                fontSize: 12,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100,
                               ),
