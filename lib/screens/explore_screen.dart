@@ -111,25 +111,22 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     for (int i = 0; i < sections.length; i++) ...[
-                      // const SizedBox(height: 16), // Add spacing between items
-
                       Text(
                         sections[i]['template_properties']['header']['title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       sectionCard(isListView, sections[i], setState),
-
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                     ],
@@ -144,19 +141,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
       bool isListView, dynamic sectionData, Function setStateCallback) {
     final numberOfItemsInSection =
         sectionData['template_properties']['items'].length;
-    final int numberOfColumns = isListView ? numberOfItemsInSection % 3 : 1;
+
     final int numberOfRows =
         isListView ? numberOfItemsInSection : numberOfItemsInSection ~/ 3 + 1;
-    // int numberOfColumns = 1;
-    // Get the no. of columns by no. of items in the section
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final double gridItemWidth =
-            (constraints.maxWidth - 16) / 3; // Adjusted to reduce extra space
+            (constraints.maxWidth - 16) / 3; 
         final double gridItemHeight = gridItemWidth + 4;
 
         return Container(
-          // margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeInOutCubic,
@@ -180,10 +175,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget _buildAnimatedItem(int index, BoxConstraints constraints,
       bool isListView, dynamic itemData, Function setStateCallback) {
     final double gridItemWidth =
-        (constraints.maxWidth - 16) / 3; // Adjusted to reduce extra space
+        (constraints.maxWidth - 16) / 3; 
     final double gridItemHeight = gridItemWidth;
 
-    // Determine grid or list positions
+    // Determining the grid or list positions
     final int row = isListView ? index ~/ 1 : index ~/ 3;
     final int column = isListView ? 0 : index % 3;
 
@@ -195,14 +190,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
       width: isListView ? constraints.maxWidth : gridItemWidth,
       height: isListView ? listItemHeight : gridItemHeight,
       child: Container(
-        margin: const EdgeInsets.all(2.0), // Adjusted margin to reduce spacing
+        margin: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-          // color: Colors.greenAccent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -237,13 +230,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ],
                 ),
                 isListView
-                    ? SizedBox(
+                    ? const SizedBox(
                         width: 12,
                       )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
                 isListView
                     ? Expanded(
-                        // Use Expanded here
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

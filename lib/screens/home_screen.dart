@@ -1,4 +1,4 @@
-import 'package:cred_assignment/explore_screen.dart';
+import 'package:cred_assignment/screens/explore_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,9 +16,8 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 15),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Spacer(),
@@ -46,7 +45,6 @@ class HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
                 fontSize: 26,
                 height: 1.2,
-                // fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(
@@ -79,7 +77,6 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                     SvgPicture.asset(
                       'assets/images/Button arrow.svg',
-                      color: Colors.black,
                     ),
                     // Image.asset(
                     //   'assets/images/button_arrow.png',
