@@ -2,6 +2,12 @@
 
 A new Flutter project.
 
+## Follow the Steps to run the app
+
+1. Open terminal and run "flutter clean" command
+2. Then run "flutter pub get"
+3. Then simply run the app by "flutter run" command.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
